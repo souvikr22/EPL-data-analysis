@@ -1,0 +1,574 @@
+---
+format: html
+editor: visual
+fig_crop: no
+---
+
+<center><img src="epl.png" width="60%" height="30%"/></center>
+
+## INTRODUCTION
+
+-   Football is played by 250 million players in over 200 countries (most popular sport globally).
+
+-   English Premier League (EPL) is the most popular football league and the most-watched sports league in the world.
+
+-   The English Premier League is the world's richest league in terms of money, which comes close to over 3 billion English Pounds Sterling.
+
+-   Beamed to over 600 million homes in 212 countries, the EPL is the world's most-watched football league with a potential global audience of nearly 5 billion people.
+
+-   20 clubs are part of the league and they play a total of 38 matches in home and away match format.
+
+## ABOUT DATA
+
+-   Data was collected through web scraping and csv files.
+
+-   CSV files have been taken from <https://www.football-data.co.uk/>.
+
+-   Data scrapping was done from <https://www.espn.in/football/table/_/league/ENG.1/> .
+
+-   Each CSV file contains 71 columns out of which 15 columns have been used .
+
+-   Each scraped file contains 9 columns.
+
+-   Abbreviations :
+
+    CSV Files:
+
+    **FTHG** - Full Time Home Team Goals
+
+    **FTAG** - Full Time Away Teams Goals
+
+    **HTHG** - Half Time Home Team Goals
+
+    **HTAG** - Half Time Away Team Goals
+
+    **HST** - Home Team Shots on Targets
+
+    **AST** - Away Team Shots on Targets
+
+    **HY** = Home Team Yellow cards
+
+    **AY** = Away Team Yellow cards
+
+    **HR** - Home Team Red cards
+
+    **AR** - Away Team Red cards
+
+    **GP** - Games Played
+
+    **GD** - Goal Difference
+
+    Scraped Files:
+
+    **GP** - Games played
+
+    **L** - Losses
+
+    **GD** - Goal Difference
+
+    **W** - Team's current Win-Loss record
+
+    **F** - Goals For
+
+    **PT** - Points
+
+    **D** = Draws
+
+    **A** = Goals
+
+#### Background Information
+
+-   The Premier League is the highest level of the men's English football league system.
+
+-   There are 20 teams playing 38 matches and each team play all other 19 teams both home and away.
+
+-   If a player is shown yellow card by the referee when he broke some rules,it means that if he do so again he will be ordered to leave the pitch.
+
+-   If a player is shown red card , then it means that he has committed a serious foul and he has to leave the play immediately.
+
+## IMPORTANT QUESTIONS
+
+1.  Do we see any correlation between features corresponding to home team and away team?
+
+2.  When do teams have higher chances of winning ?
+
+3.  Do performance of the teams remain consistent throughout the years?
+
+4.  By what percentage betting companies predicted the result correctly?
+
+## VISUALIZATIONS
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all'}
+############ required libraries #############
+if(!require('shiny')) {
+  install.packages('shiny')
+  library('shiny')
+}
+if(!require('shinydashboard')) {
+  install.packages('shinydashboard')
+  library('shinydashboard')
+}
+if(!require('reactable')) {
+   install.packages('reactable')
+   library('reactable')
+}
+if(!require('corrplot')) {
+  install.packages('corrplot')
+  library('corrplot')
+}
+if(!require('reshape')) {
+  install.packages('reshape')
+  library('reshape')
+}
+if(!require('plotrix')) {
+  install.packages('plotrix')
+  library('plotrix')
+}
+if(!require('dplyr')) {
+  install.packages('dplyr')
+  library('dplyr')
+}
+if(!require('ggplot2')) {
+  install.packages('ggplot2')
+  library('ggplot2')
+}
+if(!require('tidyr')) {
+  install.packages('tidyr')
+  library('tidyr')
+}
+############################################################
+```
+
+```{r , echo =FALSE ,warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all'}
+################# ACTUAL RAW DATA ##################
+dat_1 <- read.csv("../data/season-0910_csv.csv")
+dat_2 <- read.csv("../data/season-1011_csv.csv")
+dat_3 <- read.csv("../data/season-1112_csv.csv")
+dat_4 <- read.csv("../data/season-1213_csv.csv")
+dat_5 <- read.csv("../data/season-1314_csv.csv")
+dat_6 <- read.csv("../data/season-1415_csv.csv")
+dat_7 <- read.csv("../data/season-1516_csv.csv")
+dat_8 <- read.csv("../data/season-1617_csv.csv")
+dat_9 <- read.csv("../data/season-1718_csv.csv")
+dat_10 <- read.csv("../data/season-1819_csv.csv")
+dat_11 <-read.csv("../data/season-1920_csv.csv")
+dat_12 <-read.csv("../data/season-2021_csv.csv")
+dat_13 <- read.csv("../data/season-2122_csv.csv")
+#############  SELECTING THE REQUIRED COL ####################
+dat <- as.data.frame(cbind(dat_1$FTHG ,dat_1$FTAG ,dat_1$HTHG,dat_1$HTAG,
+             dat_1$HST ,dat_1$AST ,dat_1$HY,dat_1$AY,dat_1$HR,dat_1$AR ))
+dat <- rbind(dat , cbind(dat_2$FTHG ,dat_2$FTAG ,dat_2$HTHG,dat_2$HTAG,
+                         dat_2$HST ,dat_2$AST,dat_2$HY,dat_2$AY,dat_2$HR,dat_2$AR ) )
+dat <- rbind(dat , cbind(dat_3$FTHG ,dat_3$FTAG ,dat_3$HTHG,dat_3$HTAG,
+                         dat_3$HST ,dat_3$AST ,dat_3$HY,dat_3$AY,dat_3$HR,dat_3$AR) )
+dat <- rbind(dat , cbind(dat_4$FTHG ,dat_4$FTAG ,dat_4$HTHG,dat_4$HTAG,
+                         dat_4$HST ,dat_4$AST,dat_4$HY,dat_4$AY,dat_4$HR,dat_4$AR ) )
+dat <- rbind(dat , cbind(dat_5$FTHG ,dat_5$FTAG ,dat_5$HTHG,dat_5$HTAG,
+                         dat_5$HST ,dat_5$AST,dat_5$HY,dat_5$AY,dat_5$HR,dat_5$AR ) )
+dat <- rbind(dat , cbind(dat_6$FTHG ,dat_6$FTAG ,dat_6$HTHG,dat_6$HTAG,
+                         dat_6$HST ,dat_6$AST,dat_6$HY,dat_6$AY,dat_6$HR,dat_6$AR) )
+dat <- rbind(dat , cbind(dat_7$FTHG ,dat_7$FTAG ,dat_7$HTHG,dat_7$HTAG,
+                         dat_7$HST ,dat_7$AST ,dat_7$HY,dat_7$AY,dat_7$HR,dat_7$AR) )
+dat <- rbind(dat , cbind(dat_8$FTHG ,dat_8$FTAG ,dat_8$HTHG,dat_8$HTAG,
+                         dat_8$HST ,dat_8$AST,dat_8$HY,dat_8$AY,dat_8$HR,dat_8$AR ) )
+dat <- rbind(dat , cbind(dat_9$FTHG ,dat_9$FTAG ,dat_9$HTHG,dat_9$HTAG,
+                         dat_9$HST ,dat_9$AST ,dat_9$HY,dat_9$AY,dat_9$HR,dat_9$AR) )
+dat <- rbind(dat , cbind(dat_10$FTHG ,dat_10$FTAG ,dat_10$HTHG,dat_10$HTAG,
+                         dat_10$HST ,dat_10$AST,dat_10$HY,dat_10$AY,dat_10$HR,dat_10$AR) )
+dat <- rbind(dat , cbind(dat_11$FTHG ,dat_11$FTAG ,dat_11$HTHG,dat_11$HTAG,
+                         dat_11$HST ,dat_11$AST,dat_11$HY,dat_11$AY,dat_11$HR,dat_11$AR ) )
+dat <- rbind(dat , cbind(dat_12$FTHG ,dat_12$FTAG ,dat_12$HTHG,dat_12$HTAG,
+                         dat_12$HST ,dat_12$AST,dat_12$HY,dat_12$AY,dat_12$HR,dat_12$AR ) )
+dat <- rbind(dat , cbind(dat_13$FTHG ,dat_13$FTAG ,dat_13$HTHG,dat_13$HTAG,
+                         dat_13$HST ,dat_13$AST,dat_13$HY,dat_13$AY,dat_13$HR,dat_13$AR ) )
+#### adding col names , plotting correaltion plot 
+colnames(dat) <- c("FTHG","FTAG","HTHG" ,"HTAG","HST","AST","HY","AY","HR","AR" )
+```
+
+### Correlation plot
+
+```{r ,echo = FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+cor_coef_mat <- cor(dat,method = "spearman")
+corrplot(cor_coef_mat, method = 'circle', 
+         addCoef.col = 'black',
+         tl.cex = 1, 
+         tl.col = 'black',
+         col = COL2('BrBG'),
+         mar=c(0,0,1,0)
+)
+```
+
+We can see a very slight negative correlation between factors corresponding to home and away. This can be explained as follows: Suppose X(home team) and Y are playing a match and suppose X has done ample goals to take the lead. Then, there is a chance of slight psychological negativity in players of Y team which can be seen by negative correlation(though very less) between the teams.
+
+Now let's try to visualize important factors one by one.
+
+Note : For visualizations, we are considering the performance of **Chelsea** (Winning team) in the year 2009-10.
+
+### Performance at home ground
+
+```{r , echo = FALSE ,warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all'}
+dat_home_ground <- as.data.frame(cbind( dat_1$HomeTeam ,dat_1$AwayTeam ,
+                                        dat_1$FTHG ,dat_1$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_2$HomeTeam ,dat_2$AwayTeam , dat_2$FTHG ,dat_2$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_3$HomeTeam ,dat_3$AwayTeam ,dat_3$FTHG ,dat_3$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_4$HomeTeam ,dat_4$AwayTeam ,dat_4$FTHG ,dat_4$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_5$HomeTeam ,dat_5$AwayTeam ,dat_5$FTHG ,dat_5$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_6$HomeTeam ,dat_6$AwayTeam ,dat_6$FTHG ,dat_6$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_7$HomeTeam ,dat_7$AwayTeam ,dat_7$FTHG ,dat_7$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_8$HomeTeam ,dat_8$AwayTeam ,dat_8$FTHG ,dat_8$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_9$HomeTeam ,dat_9$AwayTeam ,dat_9$FTHG ,dat_9$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_10$HomeTeam ,dat_10$AwayTeam ,dat_10$FTHG ,dat_10$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_11$HomeTeam ,dat_11$AwayTeam ,dat_11$FTHG ,dat_11$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_12$HomeTeam ,dat_12$AwayTeam ,dat_12$FTHG ,dat_12$FTAG))
+dat_home_ground <-  rbind(dat_home_ground , cbind( dat_13$HomeTeam ,dat_13$AwayTeam ,dat_13$FTHG ,dat_13$FTAG))
+colnames(dat_home_ground) <- c("HomeTeam","AwayTeam","FTHG","FTAG")  
+B <- unique(dat_1$HomeTeam)
+all_team <- numeric(20)
+for( i in 1:20 )
+{
+  all_team[i] <- B[i]
+}
+```
+
+```{r , echo = FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all'}
+attach(dat_1)
+H_chelsea <- dat_1[which(HomeTeam == "Chelsea"),]
+H_chelsea <- H_chelsea[order(H_chelsea[,'AwayTeam']), ]
+attach(H_chelsea)
+a <- length(H_chelsea$HomeTeam)
+mat_chelsea <- cbind(H_chelsea$AwayTeam,matrix( 0 , nrow = 19 , ncol = 3))
+for( i in 1:a )
+{
+  if( FTHG[i] > FTAG[i])
+  {
+    mat_chelsea[i,2] = 1
+  }else if( FTHG[i] == FTAG[i]){
+    mat_chelsea[i,3] = 1
+  }else{
+    mat_chelsea[i,4] = 1
+  }
+}
+total <- c("total" ,sum(as.numeric(mat_chelsea[,2]))
+           ,sum(as.numeric(mat_chelsea[,3]))
+           ,sum(as.numeric(mat_chelsea[,4])))
+mat_chelsea <- rbind(mat_chelsea , total)
+mat_chelsea <- as.data.frame(mat_chelsea)
+piepercent<- round(100*(as.numeric(mat_chelsea[20,2:4]))/sum(as.numeric(mat_chelsea[20,2:4])), 1)
+makepieplot <- function(){
+pie(as.numeric(mat_chelsea[20,2:4]),labels = piepercent ,col = c("#003C30", "#35978F","#C7EAE5" ))
+legend("topright", c("win","draw","loose"), cex =1,
+       fill = c("#003C30", "#35978F","#C7EAE5" ))
+}
+makepieplot()
+```
+
+```{r , echo=FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+x      =   mat_chelsea[,1][1:19]
+y1     =   mat_chelsea[,2][1:19]
+y2   =   mat_chelsea[,3][1:19]
+y3 = mat_chelsea[,4][1:19]
+to_plot <- data.frame(x=x,win=y1,draw = y2,loose = y3)
+melted<-melt(to_plot, id="x")
+variable <- c("draw","loose","win")
+plot1func <- function(){
+print(ggplot(melted,aes(x=x,y=value,fill=variable), xlab = "team") 
+      +labs(y = "Number of matches", x = "Opponent Team") 
+      + coord_flip() +geom_bar(stat="identity",position = "dodge", alpha=1)+
+      scale_fill_manual(values=c("#003C30", "#35978F","#C7EAE5" ) ,name = "Result of the match",labels = c("Win", "Draw", "Lose")) + theme(plot.title = element_text(hjust = 0.5,face = "bold")))
+  }
+plot1func()
+```
+
+### Performance at away ground
+
+```{r , echo = FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+attach(dat_1)
+A_chelsea <- dat_1[which(AwayTeam == "Chelsea"),]
+attach(A_chelsea)
+a <- length(A_chelsea$AwayTeam)
+mat_chelsea_away <- cbind(A_chelsea$HomeTeam,matrix( 0 , nrow = 19 , ncol = 3))
+for( i in 1:a )
+{
+  if( FTHG[i] > FTAG[i])
+  {
+    mat_chelsea_away[i,2] = 1
+  }else if( FTHG[i] == FTAG[i]){
+    mat_chelsea_away[i,3] = 1
+  }else{
+    mat_chelsea_away[i,4] = 1
+  }
+}
+total <- c("total" ,sum(as.numeric(mat_chelsea_away[,2]))
+           ,sum(as.numeric(mat_chelsea_away[,3]))
+           ,sum(as.numeric(mat_chelsea_away[,4])))
+mat_chelsea_away<- rbind(mat_chelsea_away , total)
+mat_chelsea_away <- as.data.frame(mat_chelsea_away)
+piepercent<- round(100*(as.numeric(mat_chelsea_away[20,2:4]))/sum(as.numeric(mat_chelsea_away[20,2:4])), 1)
+makepieplotaway <- function(){
+pie(as.numeric(mat_chelsea_away[20,2:4]),labels = piepercent ,col = c("#003C30", "#35978F","#C7EAE5"))
+legend("topright", c("win","draw","loose"), cex =1,
+       fill = c("#003C30", "#35978F","#C7EAE5"))
+}
+makepieplotaway()
+```
+
+```{r , echo=FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+x      =   mat_chelsea_away[,1][1:19]
+y1     =   mat_chelsea_away[,2][1:19]
+y2   =   mat_chelsea_away[,3][1:19]
+y3 = mat_chelsea_away[,4][1:19]
+to_plot <- data.frame(x=x,win=y1,draw = y2,loose = y3)
+melted<-melt(to_plot, id="x")
+variable <- c("draw","loose","win")
+plot2func <- function(){
+print(ggplot(melted,aes(x=x,y=value,fill=variable), xlab = "team") 
+      +labs(y = "Number of matches", x = "Opponent Team") 
+      + coord_flip() 
+        +geom_bar(stat="identity",position = "dodge", alpha=1)+
+      scale_fill_manual(values=c("#003C30", "#35978F","#C7EAE5" ) ,name = "Result of the match",labels = c("Win", "Draw", "Lose")) + theme(plot.title = element_text(hjust = 0.5,face = "bold")))
+}
+plot2func()
+```
+
+### Pie chart showing over all performance
+
+```{r , echo=FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+load("../data/data_2009.Rdata")
+attach(data_2009)
+piepercent_1 <- round(100*(as.numeric(subset(data_2009,`2009-2010` == "Chelsea"))[3:5])/sum(as.numeric(subset(data_2009,`2009-2010` == "Chelsea"))[3:5]), 1)
+makepiechartoverall <- function(){
+pie(as.numeric(subset(data_2009,`2009-2010` == "Chelsea"))[3:5],labels = piepercent_1 , col = c("#003C30", "#35978F","#C7EAE5"))
+legend("topright", c("win","draw","loose"), cex =1,
+       fill =c("#003C30", "#35978F","#C7EAE5"))
+}
+makepiechartoverall()
+```
+
+You must have observed that Chelsea performed way better at it's home ground as compared to at away ground. On the contrary, if we take a team X which is at the bottom of the points table, then we would notice that it performed better at away ground as compared to it's performance at home ground.
+
+Now, let's try to visualize the number of yellow and red cards Chelsea gets as an away team.
+
+### Plot for Yellow Card
+
+```{r, echo = FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+attach(dat_1)
+A_chelsea <- dat_1[which(AwayTeam == "Chelsea"),]
+b = A_chelsea %>% 
+  group_by(HomeTeam) %>% 
+  summarise_if(is.numeric, mean) %>% 
+  mutate(AY = -AY) %>% 
+  select(HomeTeam, HY, AY) %>% 
+  pivot_longer(., -HomeTeam) %>% 
+  ggplot() +
+  geom_col(aes(x=HomeTeam, y=value, fill=name )) +scale_fill_manual(values=c("#C7EAE5","#003C30" ),name="Yellow Card")+
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.4))
+print(b +labs( y = 'NUMBERS OF YELLOW CARDS', x = 'HOMETEAM'))
+```
+
+### Plot for Red Card
+
+```{r , echo = FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+attach(dat_1)
+A_chelsea <- dat_1[which(AwayTeam == "Chelsea"),]
+A_chelsea <- A_chelsea[order(A_chelsea[,'HomeTeam']), ]
+b = A_chelsea %>% 
+  group_by(HomeTeam) %>% 
+  summarise_if(is.numeric, mean) %>% 
+  mutate(AR = -AR) %>% 
+  select(HomeTeam, HR, AR) %>% 
+  pivot_longer(., -HomeTeam) %>% 
+  ggplot() +
+  geom_col(aes(x=HomeTeam, y=value, fill=name )) +
+  scale_fill_manual(values=c("#C7EAE5","#003C30" ),name="Red Card")+
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.4))
+print(b +labs( y = 'NUMBERS OF YELLOW CARDS', x = 'HOMETEAM'))
+```
+
+\newpage
+
+We have done Match Wise Analysis of Chelsea using the above plots.
+
+## Overall Analysis of 2009-10 Premier League
+
+Let's try to analyse the season as a whole.
+
+### English Premier League Table 2009-10
+
+```{r ,echo=FALSE,warning=FALSE,error=FALSE}
+load("../data/data_2009.Rdata")
+reactable(data_2009 ,
+    defaultColDef = colDef(
+    header = function(value) gsub(".", " ", value, fixed = TRUE),
+    cell = function(value) format(value, nsmall = 1),
+    align = "center",
+    minWidth = 70,
+    headerStyle = list(background = "#f7f7f8")
+  ),
+  columns = list(
+    Species = colDef(minWidth = 140)  # overrides the default
+  ),
+  bordered = TRUE,
+  highlight = TRUE
+)
+```
+
+### Plot showing Points Table
+
+```{r, echo=FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+dat = data_2009
+colnames(dat) <- c('team' , 'GP' , 'W' , 'D' , 'L' , 'F' , "A" , "GD" , 'P')
+stands = subset(dat,select = c(team,P))
+names(stands)[1]="team"
+ggplot(data = stands, aes(x = P, y = reorder(team , P))) +
+  geom_col( position = "dodge") +
+  geom_col(aes(fill = P), show.legend = FALSE) +
+  geom_col(data = stands[1:4,], fill = "#01665E") +
+  scale_fill_continuous(low = "#8C510A", high = "#35978F") +
+  geom_label(aes(label=P)) +
+  labs(x = "Total Points",
+       y = "Teams") +
+  theme(legend.position = "top", 
+        plot.title = element_text(hjust = 0.5,face="bold"),
+        plot.subtitle = element_text(hjust = 0.5))
+```
+
+### Plot depicting Goals scored V/S Goals Conceded
+
+```{r, echo=FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+fadata <- subset(dat,select = c(1,F,A))
+ratio_sc <- fadata$F/fadata$A
+fadata[4] <- ratio_sc
+colnames(fadata)[4]="ratio_sc"
+colnames(fadata)[1]="team"
+fadata %>%
+  arrange(desc(ratio_sc)) %>%
+  mutate(team = factor(team, team)) %>%
+  ggplot(aes(x=A, y=F, size=ratio_sc, color=team)) +
+  geom_point(alpha=0.5) + scale_size(range = c(.1, 8)) +
+  guides(size= "none",color=guide_legend(title="Teams")) + 
+  ylab("Total Goals Scored") +
+  xlab("Total Goals Conceded") 
+```
+
+After analyzing the points table, let's move to predictions made by popular betting websites before the match commences.
+
+## Predictions made by different betting websites
+
+```{r,echo=FALSE , warning=FALSE,message=FALSE,error=FALSE, results='hide',fig.keep='all',fig.align='center'}
+dat <- dat_1
+#FOR B365
+b365 <- subset(dat,select = c(FTR,B365A,B365H))
+b365 <- b365 %>% slice(-(which(b365$FTR == "D")))
+b365[4] <- 0
+colnames(b365)[4] = "predicted_result"
+for(i in 1:nrow(b365)){
+if(b365$B365A[i] > b365$B365H[i]){
+  b365$predicted_result[i] = "H"
+}
+else{
+  b365$predicted_result[i] = "A"
+}
+}
+right_b365 = sum(b365$FTR == b365$predicted_result)
+wrong_b365 = nrow(b365) - right_b365
+
+#FOR BW
+bw <- dat %>% filter(!is.na(BWA)) %>% filter(!is.na(BWH)) %>% select(FTR,BWA,BWH)
+bw <- bw %>% slice(-(which(bw$FTR == "D")))
+bw[4] <- 0
+colnames(bw)[4] = "predicted_result"
+for(i in 1:nrow(bw)){
+  if(bw$BWA[i] > bw$BWH[i]){
+    bw$predicted_result[i] = "H"
+  }
+  else{
+    bw$predicted_result[i] = "A"
+  }
+}
+right_bw = sum(bw$FTR == bw$predicted_result)
+wrong_bw = nrow(bw) - right_bw
+
+#FOR WH
+wh <- subset(dat,select = c(FTR,WHA,WHH))
+wh <- wh %>% slice(-(which(wh$FTR == "D")))
+wh[4] <- 0
+colnames(wh)[4] = "predicted_result"
+for(i in 1:nrow(wh)){
+  if(wh$WHA[i] > wh$WHH[i]){
+    wh$predicted_result[i] = "H"
+  }
+  else{
+    wh$predicted_result[i] = "A"
+  }
+}
+right_wh = sum(wh$FTR == wh$predicted_result)
+wrong_wh = nrow(wh) - right_wh
+
+
+#FOR IW
+iw <- subset(dat,select = c(FTR,IWA,IWH))
+iw <- iw %>% slice(-(which(iw$FTR == "D")))
+iw[4] <- 0
+colnames(iw)[4] = "predicted_result"
+for(i in 1:nrow(iw)){
+  if(iw$IWA[i] > iw$IWH[i]){
+    iw$predicted_result[i] = "H"
+  }
+  else{
+    iw$predicted_result[i] = "A"
+  }
+}
+right_iw = sum(iw$FTR == iw$predicted_result)
+wrong_iw = nrow(iw) - right_iw
+
+#FOR VC
+vc <- subset(dat,select = c(FTR,VCA,VCH))
+vc <- vc %>% slice(-(which(vc$FTR == "D")))
+vc[4] <- 0
+colnames(vc)[4] = "predicted_result"
+for(i in 1:nrow(vc)){
+  if(vc$VCA[i] > vc$VCH[i]){
+    vc$predicted_result[i] = "H"
+  }
+  else{
+    vc$predicted_result[i] = "A"
+  }
+}
+right_vc = sum(vc$FTR == vc$predicted_result)
+wrong_vc = nrow(vc) - right_vc
+betplat <- c(rep("BET365" , 2) , rep("BET&WIN" , 2) , rep("William Hill" , 2) , rep("INTERWETTEN" , 2) ,
+             rep("VC Bet" , 2))
+condition <- rep(c("Right" , "Wrong" ) , 5)
+value = c(right_b365,wrong_b365,right_bw,wrong_bw,right_wh,wrong_wh,right_iw,wrong_iw,right_vc,wrong_vc)
+data <- data.frame(betplat,condition,value)
+ggplot(data, aes(fill=condition, y=value, x=betplat)) + 
+  geom_bar(position="fill", stat="identity") + 
+  scale_fill_manual(values = c("#01665E", "#C7EAE5"))+
+  xlab("Betting Websites") +
+  ylab("Count") +labs(fill='Prediction') 
+
+```
+
+# Conclusion
+
+-   The top 5 teams tend to win more matches at their home ground while the teams at the bottom of the points table tend to win more matches at the away ground.
+
+-   The top 5 teams are more and less same over all the seasons while the teams at the bottom keeps on changing.
+
+-   It seems that all the big 5 betting companies use the same algorithm to predict the odds and their prediction is correct with almost same probability over all the years.
+
+::: {align="center"}
+**Winning and losing in a game is unpredictable and it doesn't depend on a single factor rather it depends on amalgam of many factors.**
+:::
+
+# References
+
+-   <https://www.football-data.co.uk/>
+
+-   <https://www.espn.in/football/table/_/league/>
+
+-   <http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html>
+
+-   <https://rdrr.io/cran/RColorBrewer/man/ColorBrewer.html>
+
+-   <https://en.wikipedia.org/wiki/Premier_League>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>report_group2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="report_group2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="report_group2_files/libs/quarto-html/quarto.js"></script>
+<script src="report_group2_files/libs/quarto-html/popper.min.js"></script>
+<script src="report_group2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="report_group2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="report_group2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="report_group2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="report_group2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="report_group2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="report_group2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="report_group2_files/libs/core-js-2.5.3/shim.min.js"></script>
+<script src="report_group2_files/libs/react-17.0.0/react.min.js"></script>
+<script src="report_group2_files/libs/react-17.0.0/react-dom.min.js"></script>
+<script src="report_group2_files/libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="report_group2_files/libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="report_group2_files/libs/reactable-binding-0.3.0/reactable.js"></script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<center>
+<img src="epl.png" width="60%" height="30%">
+</center>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">INTRODUCTION</h2>
+<ul>
+<li><p>Football is played by 250 million players in over 200 countries (most popular sport globally).</p></li>
+<li><p>English Premier League (EPL) is the most popular football league and the most-watched sports league in the world.</p></li>
+<li><p>The English Premier League is the world’s richest league in terms of money, which comes close to over 3 billion English Pounds Sterling.</p></li>
+<li><p>Beamed to over 600 million homes in 212 countries, the EPL is the world’s most-watched football league with a potential global audience of nearly 5 billion people.</p></li>
+<li><p>20 clubs are part of the league and they play a total of 38 matches in home and away match format.</p></li>
+</ul>
+</section>
+<section id="about-data" class="level2">
+<h2 class="anchored" data-anchor-id="about-data">ABOUT DATA</h2>
+<ul>
+<li><p>Data was collected through web scraping and csv files.</p></li>
+<li><p>CSV files have been taken from <a href="https://www.football-data.co.uk/" class="uri">https://www.football-data.co.uk/</a>.</p></li>
+<li><p>Data scrapping was done from <a href="https://www.espn.in/football/table/_/league/ENG.1/" class="uri">https://www.espn.in/football/table/_/league/ENG.1/</a> .</p></li>
+<li><p>Each CSV file contains 71 columns out of which 15 columns have been used .</p></li>
+<li><p>Each scraped file contains 9 columns.</p></li>
+<li><p>Abbreviations :</p>
+<p>CSV Files:</p>
+<p><strong>FTHG</strong> - Full Time Home Team Goals</p>
+<p><strong>FTAG</strong> - Full Time Away Teams Goals</p>
+<p><strong>HTHG</strong> - Half Time Home Team Goals</p>
+<p><strong>HTAG</strong> - Half Time Away Team Goals</p>
+<p><strong>HST</strong> - Home Team Shots on Targets</p>
+<p><strong>AST</strong> - Away Team Shots on Targets</p>
+<p><strong>HY</strong> = Home Team Yellow cards</p>
+<p><strong>AY</strong> = Away Team Yellow cards</p>
+<p><strong>HR</strong> - Home Team Red cards</p>
+<p><strong>AR</strong> - Away Team Red cards</p>
+<p><strong>GP</strong> - Games Played</p>
+<p><strong>GD</strong> - Goal Difference</p>
+<p>Scraped Files:</p>
+<p><strong>GP</strong> - Games played</p>
+<p><strong>L</strong> - Losses</p>
+<p><strong>GD</strong> - Goal Difference</p>
+<p><strong>W</strong> - Team’s current Win-Loss record</p>
+<p><strong>F</strong> - Goals For</p>
+<p><strong>PT</strong> - Points</p>
+<p><strong>D</strong> = Draws</p>
+<p><strong>A</strong> = Goals</p></li>
+</ul>
+<section id="background-information" class="level4">
+<h4 class="anchored" data-anchor-id="background-information">Background Information</h4>
+<ul>
+<li><p>The Premier League is the highest level of the men’s English football league system.</p></li>
+<li><p>There are 20 teams playing 38 matches and each team play all other 19 teams both home and away.</p></li>
+<li><p>If a player is shown yellow card by the referee when he broke some rules,it means that if he do so again he will be ordered to leave the pitch.</p></li>
+<li><p>If a player is shown red card , then it means that he has committed a serious foul and he has to leave the play immediately.</p></li>
+</ul>
+</section>
+</section>
+<section id="important-questions" class="level2">
+<h2 class="anchored" data-anchor-id="important-questions">IMPORTANT QUESTIONS</h2>
+<ol type="1">
+<li><p>Do we see any correlation between features corresponding to home team and away team?</p></li>
+<li><p>When do teams have higher chances of winning ?</p></li>
+<li><p>Do performance of the teams remain consistent throughout the years?</p></li>
+<li><p>By what percentage betting companies predicted the result correctly?</p></li>
+</ol>
+</section>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">VISUALIZATIONS</h2>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<section id="correlation-plot" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-plot">Correlation plot</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see a very slight negative correlation between factors corresponding to home and away. This can be explained as follows: Suppose X(home team) and Y are playing a match and suppose X has done ample goals to take the lead. Then, there is a chance of slight psychological negativity in players of Y team which can be seen by negative correlation(though very less) between the teams.</p>
+<p>Now let’s try to visualize important factors one by one.</p>
+<p>Note : For visualizations, we are considering the performance of <strong>Chelsea</strong> (Winning team) in the year 2009-10.</p>
+</section>
+<section id="performance-at-home-ground" class="level3">
+<h3 class="anchored" data-anchor-id="performance-at-home-ground">Performance at home ground</h3>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="performance-at-away-ground" class="level3">
+<h3 class="anchored" data-anchor-id="performance-at-away-ground">Performance at away ground</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pie-chart-showing-over-all-performance" class="level3">
+<h3 class="anchored" data-anchor-id="pie-chart-showing-over-all-performance">Pie chart showing over all performance</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You must have observed that Chelsea performed way better at it’s home ground as compared to at away ground. On the contrary, if we take a team X which is at the bottom of the points table, then we would notice that it performed better at away ground as compared to it’s performance at home ground.</p>
+<p>Now, let’s try to visualize the number of yellow and red cards Chelsea gets as an away team.</p>
+</section>
+<section id="plot-for-yellow-card" class="level3">
+<h3 class="anchored" data-anchor-id="plot-for-yellow-card">Plot for Yellow Card</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-for-red-card" class="level3">
+<h3 class="anchored" data-anchor-id="plot-for-red-card">Plot for Red Card</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>We have done Match Wise Analysis of Chelsea using the above plots.</p>
+</section>
+</section>
+<section id="overall-analysis-of-2009-10-premier-league" class="level2">
+<h2 class="anchored" data-anchor-id="overall-analysis-of-2009-10-premier-league">Overall Analysis of 2009-10 Premier League</h2>
+<p>Let’s try to analyse the season as a whole.</p>
+<section id="english-premier-league-table-2009-10" class="level3">
+<h3 class="anchored" data-anchor-id="english-premier-league-table-2009-10">English Premier League Table 2009-10</h3>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="htmlwidget-5453dae2569544bb2c9b" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5453dae2569544bb2c9b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"2009-2010":["Chelsea","Manchester United","Arsenal","Tottenham Hotspur","Manchester City","Aston Villa","Liverpool","Everton","Birmingham City","Blackburn Rovers","Stoke City","Fulham","Sunderland","Bolton Wanderers","Wolverhampton Wanderers","Wigan Athletic","West Ham United","Burnley","Hull City","Portsmouth"],"GP":[38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38],"W":[27,27,23,21,18,17,18,16,13,13,11,12,11,10,9,9,8,8,6,7],"D":[5,4,6,7,13,13,9,13,11,11,14,10,11,9,11,9,11,6,12,7],"L":[6,7,9,10,7,8,11,9,14,14,13,16,16,19,18,20,19,24,20,24],"F":[103,86,83,67,73,52,61,60,38,41,34,39,48,42,32,37,47,42,34,34],"A":[32,28,41,41,45,39,35,49,47,55,48,46,56,67,56,79,66,82,75,66],"GD":[71,58,42,26,28,13,26,11,-9,-14,-14,-7,-8,-25,-24,-42,-19,-40,-41,-32],"P":[86,85,75,70,67,64,63,61,50,50,47,46,44,39,38,36,35,30,30,19]},"columns":[{"accessor":"2009-2010","name":"2009-2010","type":"character","cell":["Chelsea","Manchester United","Arsenal","Tottenham Hotspur","Manchester City","Aston Villa","Liverpool","Everton","Birmingham City","Blackburn Rovers","Stoke City","Fulham","Sunderland","Bolton Wanderers","Wolverhampton Wanderers","Wigan Athletic","West Ham United","Burnley","Hull City","Portsmouth"],"header":"2009-2010","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"accessor":"GP","name":"GP","type":"numeric","cell":["38","38","38","38","38","38","38","38","38","38","38","38","38","38","38","38","38","38","38","38"],"header":"GP","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"accessor":"W","name":"W","type":"numeric","cell":["27","27","23","21","18","17","18","16","13","13","11","12","11","10","9","9","8","8","6","7"],"header":"W","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"accessor":"D","name":"D","type":"numeric","cell":["5","4","6","7","13","13","9","13","11","11","14","10","11","9","11","9","11","6","12","7"],"header":"D","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"accessor":"L","name":"L","type":"numeric","cell":["6","7","9","10","7","8","11","9","14","14","13","16","16","19","18","20","19","24","20","24"],"header":"L","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"accessor":"F","name":"F","type":"numeric","cell":["103","86","83","67","73","52","61","60","38","41","34","39","48","42","32","37","47","42","34","34"],"header":"F","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"accessor":"A","name":"A","type":"numeric","cell":["32","28","41","41","45","39","35","49","47","55","48","46","56","67","56","79","66","82","75","66"],"header":"A","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"accessor":"GD","name":"GD","type":"numeric","cell":["71","58","42","26","28","13","26","11","-9","-14","-14","-7","-8","-25","-24","-42","-19","-40","-41","-32"],"header":"GD","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}},{"accessor":"P","name":"P","type":"numeric","cell":["86","85","75","70","67","64","63","61","50","50","47","46","44","39","38","36","35","30","30","19"],"header":"P","minWidth":70,"align":"center","headerStyle":{"background":"#f7f7f8"}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"bordered":true,"dataKey":"929244efae44a4d3f22b83cf703c0fab"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="plot-showing-points-table" class="level3">
+<h3 class="anchored" data-anchor-id="plot-showing-points-table">Plot showing Points Table</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-depicting-goals-scored-vs-goals-conceded" class="level3">
+<h3 class="anchored" data-anchor-id="plot-depicting-goals-scored-vs-goals-conceded">Plot depicting Goals scored V/S Goals Conceded</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>After analyzing the points table, let’s move to predictions made by popular betting websites before the match commences.</p>
+</section>
+</section>
+<section id="predictions-made-by-different-betting-websites" class="level2">
+<h2 class="anchored" data-anchor-id="predictions-made-by-different-betting-websites">Predictions made by different betting websites</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_group2_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<ul>
+<li><p>The top 5 teams tend to win more matches at their home ground while the teams at the bottom of the points table tend to win more matches at the away ground.</p></li>
+<li><p>The top 5 teams are more and less same over all the seasons while the teams at the bottom keeps on changing.</p></li>
+<li><p>It seems that all the big 5 betting companies use the same algorithm to predict the odds and their prediction is correct with almost same probability over all the years.</p></li>
+</ul>
+<div data-align="center">
+<p><strong>Winning and losing in a game is unpredictable and it doesn’t depend on a single factor rather it depends on amalgam of many factors.</strong></p>
+</div>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ul>
+<li><p><a href="https://www.football-data.co.uk/" class="uri">https://www.football-data.co.uk/</a></p></li>
+<li><p><a href="https://www.espn.in/football/table/_/league/" class="uri">https://www.espn.in/football/table/_/league/</a></p></li>
+<li><p><a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html" class="uri">http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html</a></p></li>
+<li><p><a href="https://rdrr.io/cran/RColorBrewer/man/ColorBrewer.html" class="uri">https://rdrr.io/cran/RColorBrewer/man/ColorBrewer.html</a></p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Premier_League" class="uri">https://en.wikipedia.org/wiki/Premier_League</a></p></li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
