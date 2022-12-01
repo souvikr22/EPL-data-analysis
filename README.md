@@ -1,6 +1,4 @@
-# project_1st_sem
-EPL Data Analysis
-
+# EPL Data Analysis
 
 Premier League is the most popular football league. It is the richest league and the most watched league in the world.
 
